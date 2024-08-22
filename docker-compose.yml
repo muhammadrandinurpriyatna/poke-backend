@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+  capture-service:
+    build: ./capture-service
+    container_name: capture-service
+    ports:
+      - "3001:3001"
+
+  release-service:
+    build: ./release-service
+    container_name: release-service
+    ports:
+      - "3002:3002"
+
+  rename-service:
+    build: ./rename-service
+    container_name: rename-service
+    ports:
+      - "3003:3003"
+
+  gateway:
+    build: ./gateway
+    container_name: gateway
+    ports:
+      - "3004:3004"
+    depends_on:
+      - capture-service
+      - release-service
+      - rename-service
